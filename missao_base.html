@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Missão</title>
+    <style>
+      /* -------------------- GERAL -------------------- */
+      body {
+        font-family: "Arial";
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        background: linear-gradient(180deg, #b30000, #d60000, #ff3b3b),
+          url("https://i.imgur.com/zZYK7uB.jpeg"); /* Fundo natalino bonito */
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+      }
+
+      h1 {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+      }
+
+      /* -------------------- CARD -------------------- */
+      .card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 25px;
+        border-radius: 15px;
+        max-width: 600px;
+        width: 90%;
+        backdrop-filter: blur(6px);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        color: #333;
+        margin-top: 20px;
+        border: 2px solid #d61d1d;
+        position: relative;
+      }
+
+      /* Adorno natalino em cima */
+      .card::before {
+        content: "🎄 Ho Ho Ho! 🎄";
+        position: absolute;
+        top: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #d61d1d;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        color: #fff;
+        font-weight: bold;
+        box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+      }
+
+      button {
+        padding: 14px 22px;
+        border: none;
+        background: #ff3c77;
+        color: white;
+        font-size: 18px;
+        border-radius: 12px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        font-weight: bold;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background: #ff1f64;
+        transform: scale(1.03);
+        box-shadow: 0 0 10px rgba(255, 0, 80, 0.7);
+      }
+
+      #senhaBox {
+        margin-top: 25px;
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        color: #b30000;
+      }
+
+      #pts {
+        color: #b30000;
+        font-weight: bold;
+      }
+
+      strong {
+        color: #b30000;
+      }
+
+      .snowflake {
+        position: fixed;
+        top: -10vh;
+        color: white;
+        animation: snow linear infinite;
+      }
+
+      @keyframes snow {
+        0% {
+          transform: translateY(-10vh) translateX(0);
+        }
+        100% {
+          transform: translateY(110vh) translateX(15vw);
+        }
+      }
+
+      /* ==================== DIA 25 – Super Natal ==================== */
+
+      /* ==================== DIA 25 — NATAL TURBINADO ==================== */
+
+      body.dia25 {
+        background: linear-gradient(180deg, #7a0000, #b30000, #ff2b2b);
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Luzinhas piscando ao redor da tela */
+      body.dia25::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border: 6px dashed transparent;
+        box-shadow: 0 0 12px 4px #ffd6d6 inset;
+        animation: luzinhas 1.2s infinite alternate;
+      }
+
+      @keyframes luzinhas {
+        0% {
+          box-shadow: 0 0 12px 4px #ff4d4d inset;
+        }
+        100% {
+          box-shadow: 0 0 12px 4px #52ff52 inset;
+        }
+      }
+
+      /* Título especial */
+      body.dia25 h1 {
+        font-size: 38px;
+        color: #ffffff;
+        text-shadow: 0 0 10px #ff0000, 0 0 25px #ff3232, 0 0 40px #ffffff;
+      }
+
+      /* Card altamente natalino */
+      body.dia25 .card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 4px solid #1fa32a;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.7),
+          0 0 25px rgba(255, 255, 255, 0.6);
+        border-radius: 18px;
+        position: relative;
+      }
+
+      /* Guirlanda linda no topo */
+      body.dia25 .card::before {
+        content: "🎄✨Natal✨🎄";
+        position: absolute;
+        top: -22px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(90deg, #0f8f1e, #1cbf2d);
+        padding: 6px 20px;
+        border-radius: 25px;
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.6),
+          0 0 10px rgba(255, 255, 255, 0.8) inset;
+      }
+
+      /* ==================== DIA 31 – Ano Novo Branco & Dourado ==================== */
+
+      /* ==================== DIA 31 – Ano Novo Branco & Dourado ==================== */
+
+      body.dia31 {
+        background: linear-gradient(180deg, #ffffff, #faf3df, #f3dca0);
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Brilho dourado suave ao redor da tela */
+      body.dia31::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        outline: 5px solid rgba(214, 179, 84, 0.65);
+        outline-offset: -5px;
+        box-shadow: 0 0 30px 12px rgba(240, 210, 140, 0.6),
+          0 0 60px 20px rgba(255, 235, 175, 0.8);
+        animation: brilhoAnoNovo 2.5s infinite alternate ease-in-out;
+      }
+
+      @keyframes brilhoAnoNovo {
+        0% {
+          box-shadow: 0 0 25px 8px rgba(240, 210, 140, 0.55),
+            0 0 55px 18px rgba(255, 235, 175, 0.75);
+        }
+        100% {
+          box-shadow: 0 0 40px 14px rgba(240, 210, 140, 0.8),
+            0 0 70px 25px rgba(255, 255, 210, 1);
+        }
+      }
+
+      /* Título dourado elegante */
+      body.dia31 h1 {
+        color: #ffffff;
+        text-shadow: 0 0 15px #d6b354, 0 0 35px #f7e7b1;
+        font-size: 36px;
+        font-weight: bold;
+      }
+
+      /* Card com efeito champagne */
+      body.dia31 .card {
+        border: 3px solid #d6b354;
+        box-shadow: 0 0 20px rgba(214, 179, 84, 0.7),
+          0 0 40px rgba(255, 240, 200, 0.7);
+        background: rgba(255, 255, 255, 0.96);
+        color: #5a4a2c;
+      }
+
+      /* Faixa “Ano Novo” estilosa */
+      body.dia31 .card::before {
+        content: "✨ 2026 ✨";
+        position: absolute;
+        top: -22px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(90deg, #d6b354, #f3e2ac);
+        color: white;
+        padding: 6px 18px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: 0 0 12px rgba(214, 179, 84, 0.8);
+      }
+
+      /* Pontos da missão em dourado */
+      body.dia31 #pts,
+      body.dia31 strong {
+        color: #d6b354;
+        font-weight: bold;
+      }
+
+      /* Botão branco + dourado */
+      body.dia31 button {
+        background: linear-gradient(90deg, #d6b354, #f5e3b5);
+        color: #4a3c1f;
+        font-weight: bold;
+        border-radius: 14px;
+        font-size: 18px;
+        box-shadow: 0 0 10px rgba(214, 179, 84, 0.6);
+        transition: 0.2s;
+      }
+
+      body.dia31 button:hover {
+        background: linear-gradient(90deg, #e3c068, #fff0c9);
+        transform: scale(1.04);
+        box-shadow: 0 0 14px rgba(214, 179, 84, 0.9);
+      }
+
+      /* Estrelas douradas caindo */
+      body.dia31 .snowflake {
+        color: #d6b354;
+        opacity: 0.8;
+        font-size: 14px !important;
+        animation-duration: 6s !important;
+      }
+
+      /* Contêiner dos fogos */
+      #fogos-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 9999;
+      }
+
+      .fogo {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0;
+        animation: explodir 1.2s ease-out forwards;
+      }
+
+      @keyframes explodir {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--x), var(--y)) scale(0.1);
+          opacity: 0;
+        }
+      }
+
+      /* ==================== DIAS 27 a 30 – Ano Novo Simples ==================== */
+
+      body.anoNovoSimples {
+        background: linear-gradient(180deg, #ffffff, #faf7ef, #f4ead4);
+        background-size: cover;
+        background-position: center;
+        color: #3d3d3d;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Brilho leve nas bordas */
+      body.anoNovoSimples::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        box-shadow: 0 0 25px rgba(230, 200, 140, 0.35) inset;
+      }
+
+      /* Título elegante de Ano Novo */
+      body.anoNovoSimples h1 {
+        color: #4e3f1b;
+        text-shadow: 0 0 10px rgba(210, 180, 120, 0.7);
+        font-size: 32px;
+      }
+
+      /* Card minimalista branco + dourado */
+      body.anoNovoSimples .card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 2px solid rgba(210, 180, 120, 0.6);
+        box-shadow: 0 0 15px rgba(210, 180, 120, 0.4);
+        color: #4e3f1b;
+      }
+
+      /* Faixa superior discreta */
+      body.anoNovoSimples .card::before {
+        content: "✨ Ano Novo ✨";
+        position: absolute;
+        top: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(90deg, #d6b354, #f4e4b8);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      /* Douradinho no forte e nos pontos */
+      body.anoNovoSimples strong,
+      body.anoNovoSimples #pts {
+        color: #c5a45e;
+      }
+
+      /* Botão simples dourado */
+      body.anoNovoSimples button {
+        background: linear-gradient(90deg, #d6b354, #f1e2bd);
+        color: #4c3a1e;
+        font-weight: bold;
+        border-radius: 12px;
+        transition: 0.2s;
+      }
+
+      body.anoNovoSimples button:hover {
+        background: linear-gradient(90deg, #e7cb78, #fff3d5);
+        transform: scale(1.04);
+        box-shadow: 0 0 10px rgba(214, 179, 84, 0.6);
+      }
+
+      /* Estrelinhas sutis no fundo */
+      body.anoNovoSimples .snowflake {
+        color: #d6b354;
+        opacity: 0.65;
+        font-size: 10px !important;
+        animation-duration: 7s !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <audio id="musicaNatal" loop autoplay>
+      <source src="jingle.mp3" type="audio/mpeg" />
+    </audio>
+    <h1 id="tituloMissao">Carregando...</h1>
+
+    <div class="card">
+      <p id="descricaoMissao">...</p>
+
+      <p><strong>Pontos da missão:</strong> <span id="pts"></span></p>
+
+      <button onclick="concluirMissao()">Concluir missão</button>
+
+      <div id="senhaBox"></div>
+    </div>
+
+    <script>
+      const missoes = {
+        20: {
+          titulo: "O quanto você lembra?",
+          desc:
+            "Para aquecer sua mente para os desafios, é hora de testar sua memória afetiva! 🧠\n\n" +
+            "Responda as 5 perguntas do questionário sobre o nosso relacionamento.\n" +
+            "Quando terminar, me envie um print das respostas. Se eu confirmar que está certo, a recompensa é sua!\n\n" +
+            "Link: https://forms.gle/riakv26qUNKMfWF67",
+          pts: 20,
+          senha: "AMERICANA",
+        },
+        21: {
+          titulo: "UNO!!!",
+          desc:
+            "As cartas foram convocadas. 🎴🔥\n\n" +
+            "Para completar esta missão, você precisa me vencer em UMA partida de UNO.\n" +
+            "Eu não vou pegar leve, então se esforce. Estou preparado para qualquer jogada.\n\n" +
+            "Boa sorte... você vai precisar.",
+          pts: 40,
+          senha: "LUA ...... Fique atenta as bordas do site 👀",
+        },
+        22: {
+          titulo: "Água é muito bom",
+          desc:
+            "Nenhum ser humano vive só de refri! 💧✨\n\n" +
+            "Seu desafio (que não era pra ser) de hoje: beber 1 litro de água em 24 horas.\n" +
+            "Não precisa ser de uma vez, obviamente.\n\n" +
+            "Basta me mandar uma foto no começo, de uma garrafa de 1 litro ou duas de 500 ml cheias, e depois uma foto delas vazias.\n\n" +
+            "Seu rim agradece, eu também.",
+          pts: 60,
+          senha: "BAURO",
+        },
+        23: {
+          titulo: "Retrato Perfeito",
+          desc:
+            "Mostre seu talento artístico! 🎨\n\n" +
+            "Você terá 20 minutos para fazer um retrato do seu namorado da maneira que quiser, realista, fofinho, estilizado, palito, o que sua criatividade mandar.\n\n" +
+            "O importante é: terminar no tempo, se esforçar, e me enviar uma foto.",
+          pts: 80,
+          senha:
+            "IMAGINARIO ... Imagine o canto superior direito do site... ou talvez o esquerdo 👀",
+        },
+
+        24: {
+          titulo: "Caça ao Natal",
+          desc:
+            "O espírito natalino deixou pistas pelo caminho… e você precisa encontrá-las. 🎄🕵️‍♀️\n\n" +
+            "Você receberá um texto aparentemente normal, mas com 7 palavras escondidas que não pertencem à história.\n\n" +
+            "Identifique-as e me envie todas elas!’\n\n" +
+            "Atenção aos detalhes, você nunca está errada!",
+          pts: 60,
+          senha: "MASCARA",
+        },
+
+        25: {
+          titulo: "Quebra-carta de Natal",
+          desc:
+            "Uma foto de Natal especial foi destruída por forças desconhecidas (eu). 🎁💥\n\n" +
+            "Você receberá partes embaralhadas dessa foto em um envelope. Sua missão é reorganizar tudo e reconstruir a versão original.\n" +
+            "No final, envie a foto refeita para mim.\n\n" +
+            "Capriche, aposto que se surpreenderá.",
+          pts: 80,
+          senha: "BOLSA ... Pontos nos cantos... e talvez no meio? 👀",
+        },
+        26: {
+          titulo: "Clima Pós-Natal",
+          desc:
+            "Entre no espírito natalino tardio! 🎄✨\n\n" +
+            "Desenhe uma árvore de Natal usando apenas 10 traços.\n\n" +
+            "Extras:\n" +
+            "• Utilize apenas três cores diferentes para pintar o desenho.\n" +
+            "• Para cada decoração (bolinha, estrela, laço…), você pode usar até 3 traços.\n\n" +
+            "Crie a árvore mais criativa possível dentro desse limite de linhas.",
+          pts: 40,
+          senha: "COMERCIO",
+        },
+
+        27: {
+          titulo: "Origami no Olho",
+          desc:
+            "Escolha um origami e tente dobrá-lo usando apenas uma imagem que não tenha instruções como referência, sem vídeo, sem tutorial passo a passo. 🧠📄\n\n" +
+            "Me envie uma foto do origami antes de começar pra mim aprova-lo.\n\n" +
+            "No final, envie uma foto do resultado da obra-prima…",
+          pts: 60,
+          senha: "ACADEMIA ... Extremidades laterais 👀",
+        },
+
+        28: {
+          titulo: "Fireboy & Watergirl",
+          desc:
+            "A dupla perfeita precisa provar a sintonia! 🔥💧\n\n" +
+            "Jogue comigo 10 fases de Fireboy & Watergirl.\n" +
+            "Vale qualquer versão do jogo, você escolhe o de computador ou celular.\n\n" +
+            "Aliás, já adiantando, eu sou o foguinho 🔥",
+          pts: 60,
+          senha: "RODEIO",
+        },
+
+        29: {
+          titulo: "Que Som é Esse?",
+          desc:
+            "Você receberá 9 áudios curtos com sons de coisas da natureza misturadas. 🎧🌀\n\n" +
+            "Sua missão é identificar no mínimo 3 dos sons que aparecem nele.\n" +
+            "Pode ter barulho de animal, planeta, chuva, mar… qualquer coisa!\n\n" +
+            "Me envie seus palpites.\n",
+          pts: 40,
+          senha: "FORMATURA",
+        },
+
+        30: {
+          titulo: "Desafio das músicas",
+          desc:
+            "Que tal virar DJ por um momento? 🎧💘\n\n" +
+            "Monte uma playlist com 5 músicas que te lembrem de nós.\n" +
+            "Mas precisa seguir esta regra:\n" +
+            "• As 5 devem ser de genêros diferentes\n\n" +
+            "Se estiver com dificuldade, pode usar as váriações do pop.",
+          pts: 30,
+          senha: "LISO",
+        },
+        31: {
+          titulo: "Mensagem para Nós do Futuro",
+          desc:
+            "Abra uma janela para o tempo. 📜⏳\n\n" +
+            "Escreva um texto imaginando nós dois daqui a dez anos.\n" +
+            "Pode ser romântico, engraçado, realista... Da maneira que quiser\n\n" +
+            "O futuro merece atenção.",
+          pts: 80,
+          senha: "A chave do meu coração é sua",
+        },
+      };
+
+      const params = new URLSearchParams(location.search);
+      const dia = params.get("dia");
+      const m = missoes[dia];
+
+      if (!m) {
+        document.body.innerHTML = "<h1>Missão inválida 🎅</h1>";
+      }
+
+      /* Aplicar temas especiais */
+      if (dia === "25") {
+        document.body.classList.add("dia25");
+      }
+      if (dia === "31") {
+        document.body.classList.add("dia31");
+      }
+
+      /* Tema Ano Novo simples – dias 27 a 30 */
+      if (["27", "28", "29", "30"].includes(dia)) {
+        document.body.classList.add("anoNovoSimples");
+      }
+
+      document.getElementById(
+        "tituloMissao"
+      ).innerText = `Dia ${dia} – ${m.titulo}`;
+
+      document.getElementById("descricaoMissao").innerText = m.desc;
+      document.getElementById("pts").innerText = m.pts;
+
+      function concluirMissao() {
+        if (localStorage.getItem("dia_" + dia) === "ok") {
+          return alert("Você já concluiu!");
+        }
+
+        let total = Number(localStorage.getItem("pontosTotais") || 0);
+        total += m.pts;
+        localStorage.setItem("pontosTotais", total);
+        localStorage.setItem("dia_" + dia, "ok");
+
+        document.getElementById("senhaBox").innerHTML =
+          "🎁 Senha: <strong>" + m.senha + "</strong>";
+
+        alert("Missão concluída! Pontos adicionados 🎄");
+      }
+    </script>
+    <script>
+      function criarNeve() {
+        for (let i = 0; i < 40; i++) {
+          let floco = document.createElement("div");
+          floco.className = "snowflake";
+
+          // ❄ deixa aleatório e variado
+          floco.innerHTML = Math.random() > 0.5 ? "❄" : "✦";
+
+          floco.style.left = Math.random() * 100 + "vw";
+          floco.style.animationDuration = 4 + Math.random() * 7 + "s";
+          floco.style.animationDelay = Math.random() * 5 + "s";
+          floco.style.fontSize = 12 + Math.random() * 20 + "px";
+          floco.style.opacity = 0.4 + Math.random() * 0.6;
+
+          document.body.appendChild(floco);
+        }
+      }
+
+      criarNeve();
+    </script>
+    <div id="fogos-container"></div>
+  </body>
+</html>
+
+<!-- A seguir, 12 páginas individuais prontas para uso: basta salvar cada bloco em arquivos separados -->
+
+<!-- ====== missao_20.html ====== -->
+<!-- Mesmo conteúdo do modelo, só muda a query string para abrir com dia=20 -->
+<!-- <script> location.href = 'missao_base.html?dia=20' </script> -->
+
+<!-- ====== missao_21.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=21' </script> -->
+
+<!-- ====== missao_22.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=22' </script> -->
+
+<!-- ====== missao_23.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=23' </script> -->
+
+<!-- ====== missao_24.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=24' </script> -->
+
+<!-- ====== missao_25.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=25' </script> -->
+
+<!-- ====== missao_26.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=26' </script> -->
+
+<!-- ====== missao_27.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=27' </script> -->
+
+<!-- ====== missao_28.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=28' </script> -->
+
+<!-- ====== missao_29.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=29' </script> -->
+
+<!-- ====== missao_30.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=30' </script> -->
+
+<!-- ====== missao_31.html ====== -->
+<!-- <script> location.href = 'missao_base.html?dia=31' </script> -->

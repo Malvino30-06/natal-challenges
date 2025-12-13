@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loja de Presentes – Natal</title>
+
+    <style>
+      /* ===== FUNDO NATALINO ===== */
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(#b80000, #7b0000);
+        margin: 0;
+        padding: 20px;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      /* ===== NEVE ===== */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("https://i.imgur.com/8Q8R9Dk.png");
+        background-size: cover;
+        pointer-events: none;
+        animation: snowMove 15s linear infinite;
+        opacity: 0.4;
+      }
+
+      @keyframes snowMove {
+        0% {
+          transform: translateY(-8vh);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 18px;
+        animation: snowFlake linear infinite;
+        opacity: 0.8;
+        z-index: 50;
+      }
+
+      @keyframes snowFlake {
+        0% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      /* ===== CABEÇALHO DECORADO ===== */
+      header {
+        text-align: center;
+        margin-bottom: 35px;
+        position: relative;
+        padding-top: 25px;
+      }
+
+      /* Luzes de Natal */
+      header::before {
+        content: "✨";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 22px;
+        letter-spacing: 4px;
+        color: gold;
+        animation: luzes 1.8s infinite ease-in-out;
+      }
+
+      @keyframes luzes {
+        0% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.4;
+        }
+      }
+
+      h1 {
+        font-size: 34px;
+        margin: 0;
+        color: #fff7e6;
+        text-shadow: 0 0 12px rgba(255, 230, 150, 0.9);
+      }
+
+      #pontos {
+        margin-top: 15px;
+        font-size: 18px;
+        padding: 12px 20px;
+        border-radius: 12px;
+        background: rgba(255, 240, 220, 0.15);
+        border: 2px solid rgba(255, 230, 150, 0.6);
+        backdrop-filter: blur(5px);
+        display: inline-block;
+        color: #fffbe6;
+        text-shadow: 0 0 6px #b21212;
+      }
+
+      /* ===== GRADE DOS ITENS ===== */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 30px;
+      }
+
+      /* ===== CARD DOS PRESENTES ===== */
+      .item {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(4px);
+        border-radius: 20px;
+        padding: 20px;
+        text-align: center;
+        border: 3px solid #ffd27f;
+        box-shadow: 0 0 12px rgba(255, 210, 120, 0.5),
+          inset 0 0 10px rgba(255, 255, 255, 0.15);
+        transition: 0.25s;
+        position: relative;
+      }
+
+      /* Enfeites nos cantos */
+      .item::before {
+        content: "🎀";
+        position: absolute;
+        top: -12px;
+        left: -12px;
+        font-size: 26px;
+      }
+
+      .item::after {
+        content: "🎀";
+        position: absolute;
+        bottom: -12px;
+        right: -12px;
+        font-size: 26px;
+      }
+
+      .item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 18px rgba(255, 240, 180, 0.9),
+          inset 0 0 12px rgba(255, 255, 255, 0.2);
+      }
+
+      .item h3 {
+        margin-top: 0;
+        font-size: 21px;
+        color: #fff7e3;
+        text-shadow: 0 0 6px rgba(255, 240, 180, 0.9);
+      }
+
+      .item p {
+        font-size: 17px;
+        margin: 5px 0;
+      }
+
+      .item button {
+        margin-top: 12px;
+        padding: 10px 14px;
+        background: #0fc95b;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 17px;
+        transition: 0.2s;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 0 10px rgba(0, 255, 90, 0.6);
+      }
+
+      .item button:hover:not(:disabled) {
+        background: #14f26c;
+        transform: scale(1.07);
+        box-shadow: 0 0 14px rgba(0, 255, 90, 0.9);
+      }
+
+      .item button:disabled {
+        background: #777;
+        box-shadow: none;
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+
+  <body>
+    <audio id="musicaNatal" loop autoplay>
+      <source src="jingle.mp3" type="audio/mpeg" />
+    </audio>
+    <header>
+      <h1>🎄 Loja de Presentes de Natal 🎁</h1>
+      <div id="pontos">Carregando...</div>
+    </header>
+
+    <div class="grid" id="listaItens"></div>
+
+    <script>
+      const itens = [
+        { nome: "Presente Básico 1 📎", preco: 30, id: "basic1" },
+        { nome: "Presente Básico 2 📿", preco: 30, id: "basic2" },
+        { nome: "Presente Básico 3 🍬", preco: 30, id: "basic3" },
+        { nome: "Presente Básico 4 🔻", preco: 30, id: "basic4" },
+        { nome: "Presente Básico 5 🍫", preco: 30, id: "basic5" },
+
+        { nome: "Intermediário 1 🩰", preco: 60, id: "inter1" },
+        { nome: "Intermediário 2 ⛸️", preco: 60, id: "inter2" },
+        { nome: "Intermediário 3 💄", preco: 60, id: "inter3" },
+        { nome: "Intermediário 4 🧈", preco: 60, id: "inter4" },
+
+        { nome: "Especial de Natal 🎅", preco: 120, id: "especialNatal" },
+        { nome: "Especial de Ano Novo 🎆", preco: 120, id: "especialAno" },
+        { nome: "Especial Surpresa 🎁", preco: 120, id: "especial3" },
+      ];
+
+      function getPontos() {
+        return parseInt(localStorage.getItem("pontosTotais") || "0");
+      }
+
+      function setPontos(v) {
+        localStorage.setItem("pontosTotais", v);
+        atualizarPontos();
+      }
+
+      function atualizarPontos() {
+        document.getElementById("pontos").textContent =
+          "Pontos disponíveis: " + getPontos();
+      }
+
+      function carregarLoja() {
+        const lista = document.getElementById("listaItens");
+        lista.innerHTML = "";
+
+        itens.forEach((item) => {
+          const comprado = localStorage.getItem("comprado_" + item.id);
+
+          const div = document.createElement("div");
+          div.className = "item";
+
+          let preco = item.preco;
+          let etiqueta = `${preco} pontos`;
+
+          if (localStorage.getItem("desconto50")) {
+            preco = Math.floor(preco * 0.5);
+            etiqueta = `<del>${item.preco}</del> <strong>${preco} pontos</strong> (50% OFF 🎄)`;
+          } else if (localStorage.getItem("desconto20")) {
+            preco = Math.floor(preco * 0.8);
+            etiqueta = `<del>${item.preco}</del> <strong>${preco} pontos</strong> (20% OFF ❄)`;
+          }
+
+          div.innerHTML = `
+            <h3>${item.nome}</h3>
+            <p>${etiqueta}</p>
+            <button id="btn_${item.id}" ${comprado ? "disabled" : ""}>
+              ${comprado ? "🎁 Já comprado" : "Comprar"}
+            </button>
+          `;
+
+          lista.appendChild(div);
+
+          document
+            .getElementById("btn_" + item.id)
+            .addEventListener("click", () => comprarItem(item));
+        });
+
+        atualizarPontos();
+      }
+
+      function comprarItem(item) {
+        let precoFinal = item.preco;
+
+        if (localStorage.getItem("desconto50")) {
+          precoFinal = Math.floor(item.preco * 0.5);
+        } else if (localStorage.getItem("desconto20")) {
+          precoFinal = Math.floor(item.preco * 0.8);
+        }
+
+        const pontos = getPontos();
+
+        if (pontos < precoFinal) {
+          alert("Você não tem pontos suficientes!");
+          return;
+        }
+
+        if (!confirm(`Deseja comprar "${item.nome}" por ${precoFinal} pontos?`))
+          return;
+
+        setPontos(pontos - precoFinal);
+        localStorage.removeItem("desconto50");
+        localStorage.removeItem("desconto20");
+
+        localStorage.setItem("comprado_" + item.id, "1");
+
+        carregarLoja();
+        alert("Compra realizada! 🎄");
+      }
+
+      carregarLoja();
+    </script>
+
+    <script>
+      function criarNeve() {
+        for (let i = 0; i < 20; i++) {
+          let floco = document.createElement("div");
+          floco.className = "snowflake";
+          floco.innerHTML = "❄";
+          floco.style.left = Math.random() * 100 + "vw";
+          floco.style.fontSize = 14 + Math.random() * 10 + "px";
+          floco.style.animationDuration = 4 + Math.random() * 6 + "s";
+          floco.style.opacity = 0.6 + Math.random() * 0.4;
+          document.body.appendChild(floco);
+        }
+      }
+      criarNeve();
+    </script>
+  </body>
+</html>

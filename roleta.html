@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roleta de Presentes - Natal</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(#b00000, #5a0000);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        overflow: hidden;
+        text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://i.imgur.com/8Q8R9Dk.png");
+        pointer-events: none;
+        animation: neve 12s linear infinite;
+        opacity: 0.45;
+      }
+
+      @keyframes neve {
+        0% {
+          transform: translateY(-10vh);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 20px;
+        opacity: 0.9;
+        animation: neve linear infinite;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(6px);
+        padding: 25px;
+        border-radius: 22px;
+        width: 90%;
+        max-width: 430px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        border: 2px solid #ffe3b3;
+      }
+
+      h2 {
+        font-size: 30px;
+        text-shadow: 0 0 12px rgba(255, 230, 230, 0.9);
+      }
+
+      #roleta {
+        margin: 25px auto;
+        width: 270px;
+        height: 270px;
+        border-radius: 50%;
+        border: 12px solid #f7d07a;
+        box-shadow: 0 0 22px rgba(255, 240, 150, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: conic-gradient(
+          #c40000 0deg 60deg,
+          #ff6969 60deg 120deg,
+          #fff1a6 120deg 180deg,
+          #00c755 180deg 240deg,
+          #ffe08a 240deg 300deg,
+          #ff4c4c 300deg 360deg
+        );
+        transition: transform 4.2s cubic-bezier(0.16, 1, 0.3, 1);
+        font-size: 26px;
+        font-weight: bold;
+      }
+
+      #spinBtn {
+        padding: 12px 22px;
+        background: #18c856;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: bold;
+        box-shadow: 0 0 12px rgba(0, 255, 0, 0.6);
+        transition: 0.2s;
+      }
+
+      #spinBtn:hover {
+        background: #1af76a;
+        transform: scale(1.06);
+      }
+
+      #resultado {
+        margin-top: 14px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      #pontosAtual {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <audio id="musicaNatal" loop autoplay>
+      <source src="jingle.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="container">
+      <h2>🎄 Roleta Natalina 🎁</h2>
+      <p>
+        Gire para ganhar presentes, descontos e surpresas natalinas por 10
+        pontos!
+      </p>
+
+      <div id="pontosAtual">Carregando...</div>
+
+      <div id="roleta">🎁</div>
+
+      <button id="spinBtn">Girar Roleta</button>
+
+      <div id="resultado"></div>
+    </div>
+
+    <script>
+      const itensRoleta = [
+        "Nada 😢",
+        "Presente Básico 1",
+        "Nada 😢",
+        "Presente Básico 1",
+        "Nada 😢",
+        "Presente Intermediário 2",
+        "Nada 😢",
+        "50% de desconto",
+        "20% de desconto",
+        "20% de desconto",
+        "Nada 😢",
+        "Presente Básico 2",
+        "Nada 😢",
+        "Presente Básico 2",
+        "Nada 😢",
+        "Presente Básico 3",
+        "Nada 😢",
+        "Presente Básico 3",
+        "Nada 😢",
+        "Presente Básico 4",
+        "Nada 😢",
+        "Presente Básico 4",
+        "Nada 😢",
+        "Presente Básico 5",
+        "Nada 😢",
+        "Presente Básico 5",
+        "Nada 😢",
+        "Presente Intermediário 1",
+        "Nada 😢",
+        "Presente Intermediário 3",
+        "VALE BEIJO INFINITO",
+        "Presente Intermediário 4",
+        "Nada 😢",
+      ];
+
+      const roleta = document.getElementById("roleta");
+      const resultado = document.getElementById("resultado");
+      const spinBtn = document.getElementById("spinBtn");
+      const pontosBox = document.getElementById("pontosAtual");
+      const musica = document.getElementById("musicaNatal");
+
+      function atualizarPontos() {
+        let p = localStorage.getItem("pontosTotais") || 0;
+        pontosBox.innerText = "Seus pontos: " + p;
+      }
+
+      atualizarPontos();
+
+      spinBtn.onclick = function () {
+        musica.volume = 0.4;
+        musica.play();
+
+        let pontos = parseInt(localStorage.getItem("pontosTotais") || 0);
+        if (pontos < 10) {
+          resultado.innerText = "Você não tem pontos suficientes!";
+          return;
+        }
+
+        localStorage.setItem("pontosTotais", pontos - 10);
+        atualizarPontos();
+        resultado.innerText = "Girando...";
+
+        const voltas = Math.floor(Math.random() * 4) + 4;
+        const posicao = Math.floor(Math.random() * itensRoleta.length);
+        const angulo = 360 * voltas + posicao * (360 / itensRoleta.length);
+
+        roleta.style.transform = `rotate(${angulo}deg)`;
+
+        setTimeout(() => {
+          const premio = itensRoleta[posicao];
+          resultado.innerText = "Resultado: " + premio;
+
+          const mapa = {
+            "Presente Básico 1": "basic1",
+            "Presente Básico 2": "basic2",
+            "Presente Básico 3": "basic3",
+            "Presente Básico 4": "basic4",
+            "Presente Básico 5": "basic5",
+            "Presente Intermediário 1": "inter1",
+            "Presente Intermediário 2": "inter2",
+            "Presente Intermediário 3": "inter3",
+          };
+
+          if (mapa[premio])
+            localStorage.setItem("comprado_" + mapa[premio], "1");
+          if (premio.includes("50%")) localStorage.setItem("desconto50", "1");
+          if (premio.includes("20%")) localStorage.setItem("desconto20", "1");
+        }, 4300);
+      };
+
+      function criarNeve() {
+        for (let i = 0; i < 25; i++) {
+          let floco = document.createElement("div");
+          floco.className = "snowflake";
+          floco.innerHTML = "❄";
+          floco.style.left = Math.random() * 100 + "vw";
+          floco.style.fontSize = 16 + Math.random() * 10 + "px";
+          floco.style.animationDuration = 4 + Math.random() * 6 + "s";
+          document.body.appendChild(floco);
+        }
+      }
+      criarNeve();
+    </script>
+  </body>
+</html>
