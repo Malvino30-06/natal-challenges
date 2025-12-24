@@ -187,6 +187,17 @@
         animation: snow linear infinite;
         pointer-events: none;
       }
+
+       #btnPontos {
+        position: fixed;
+        bottom: 5px;
+        left: 5px;
+        width: 30px;
+        height: 30px;
+        opacity: 0; /* totalmente invisível */
+        cursor: pointer;
+        z-index: 9999;
+      }
     </style>
   </head>
 
@@ -226,7 +237,7 @@
 
       <div class="points-box" id="pontosDisplay">Carregando seus pontos...</div>
     </div>
-
+ <div id="btnPontos"></div>
     <script>
       /* NEVE MELHORADA */
       for (let i = 0; i < 25; i++) {
@@ -252,6 +263,24 @@
       }
 
       atualizarPontos();
+
+      document
+        .getElementById("btnTestePontos")
+        .addEventListener("click", () => {
+          let valor = prompt("Quantos pontos deseja adicionar?");
+
+          if (!valor || isNaN(valor)) return;
+
+          valor = Number(valor);
+
+          let atual = Number(localStorage.getItem("pontosTotais") || 0);
+          atual += valor;
+
+          localStorage.setItem("pontosTotais", atual);
+          atualizarPontos();
+
+          alert("Pontos adicionados com sucesso!");
+        });
     </script>
   </body>
 </html>
